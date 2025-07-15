@@ -89,3 +89,15 @@
 - **Performance:** Clear benchmark comparison with SPY
 - **Technical:** Sub-2 second execution, > 95% data quality
 - **Professional:** Interview-ready documentation and presentation
+
+## Quickstart
+
+After running the ETF pipeline you can build a tiny demo portfolio using the new script:
+
+```bash
+python -m scripts.portfolio
+```
+
+This reads `data/processed/etf_master.csv`, ranks tickers by a Sharpe/Momentum composite and prints equal weights for the top names.
+
+To validate the scoring utilities run the test suite with `pytest`.
