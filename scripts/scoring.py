@@ -30,3 +30,11 @@ def lagged_momentum(prices: List[float], months: int = 6, lag: int = 1, period: 
     if start == 0:
         return 0.0
     return end / start - 1
+
+def compute_volatility(returns: List[float]) -> float:
+    """Annualized standard deviation of daily returns."""
+    if not returns:
+        return 0.0
+    std = st.stdev(returns) if len(returns) > 1 else 0
+    return math.sqrt(252) * std
+
