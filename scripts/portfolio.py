@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from .scoring import compute_sharpe, lagged_momentum
+from .utils import load_settings
 
 BASE = Path(__file__).parent.parent
 
@@ -18,6 +19,9 @@ def load_prices(path: Path) -> Dict[str, List[float]]:
     return data
 
 def score_tickers(price_hist: Dict[str, List[float]]) -> Dict[str, float]:
+    cfg = load_settings().get("score_weights", {"sharpe": 0.6, "momentum": 0.4})
+    w_sharpe = cfg.get("sharpe", 0.6)
+    w_mom = cfg.get("momentum", 0.4)
     scores = {}
     for ticker, prices in price_hist.items():
         returns = [ (p2/p1) - 1 for p1, p2 in zip(prices[:-1], prices[1:]) ]
@@ -26,7 +30,7 @@ def score_tickers(price_hist: Dict[str, List[float]]) -> Dict[str, float]:
             mom = lagged_momentum(prices)
         except ValueError:
             mom = 0.0
-        composite = 0.6 * sharpe + 0.4 * mom
+        composite = w_sharpe * sharpe + w_mom * mom
         scores[ticker] = composite
     return scores
 

@@ -1,13 +1,18 @@
 # scripts/pipeline.py
 
-from .utils      import load_etf_list, data_paths
+from .utils      import load_etf_list, data_paths, load_settings, validate_tickers
 from .ingestion  import fetch_etf_data, build_price_df
 from .cleaning   import filter_min_history, fill_missing, flag_illiquid
 from .tagging    import assign_broad_category, assign_detailed_sector
 
-def run_etf_pipeline(months=12, vol_thresh=1e5):
+def run_etf_pipeline(months=None, vol_thresh=None):
+    cfg = load_settings()
+    if months is None:
+        months = cfg.get("lookback_months", 12)
+    if vol_thresh is None:
+        vol_thresh = cfg.get("vol_thresh", 1e5)
     # 1) Universe
-    etfs = load_etf_list()
+    etfs = validate_tickers(load_etf_list())
 
     # 2) Ingest
     raw      = fetch_etf_data(etfs)
