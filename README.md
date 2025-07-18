@@ -92,13 +92,13 @@
 
 ## Quickstart
 
-After running the ETF pipeline you can build a tiny demo portfolio using the new script:
+After running the ETF pipeline you can build a diversified example portfolio using the new script:
 
 ```bash
 python -m scripts.portfolio
 ```
 
-This reads `data/processed/etf_master.csv`, ranks tickers by a Sharpe/Momentum composite and prints equal weights for the top names.
+This reads `data/processed/etf_master.csv`, scores tickers using Sharpe ratio, momentum and volatility, and ensures at least one ETF from each major asset class. It then prints equal weights for the selected names.
 
 To validate the scoring utilities run the test suite with `pytest`.
 
