@@ -1,0 +1,10 @@
+lookback_months: 12
+vol_thresh: 100000
+score_weights:
+  sharpe: 0.6
+  momentum: 0.4
+screener:
+  min_aum: 15000000000
+  min_avg_vol: 1000000
+  must_include:
+    - VOO

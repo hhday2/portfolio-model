@@ -101,3 +101,12 @@ python -m scripts.portfolio
 This reads `data/processed/etf_master.csv`, ranks tickers by a Sharpe/Momentum composite and prints equal weights for the top names.
 
 To validate the scoring utilities run the test suite with `pytest`.
+
+### Configuration
+
+Key parameters like lookback windows and score weights live in `config/settings.yml`.
+Install dependencies with:
+
+```bash
+pip install -r requirements.txt
+```
